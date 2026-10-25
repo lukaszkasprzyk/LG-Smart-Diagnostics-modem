@@ -6,6 +6,8 @@ Decodes the 4-MFSK audio burst produced by **LG Smart Diagnosis** on refrigerato
 washing machines, dishwashers and other LG home appliances, and maps the payload to
 known LG error codes.
 
+> **⚠️ Single-sample caveat:** this decoder was developed and validated against a single real-world recording (LG GBB92MCB2P refrigerator, error CF).  It may not decode correctly for all appliance models or firmware versions.  If it worked for you — or didn't — please open an issue or leave a comment.  Every additional recording helps improve accuracy.
+
 ![Signal analysis — LG GBB92MCB2P, error CF (condenser fan)](docs/signal_example.png)
 
 ## Background
