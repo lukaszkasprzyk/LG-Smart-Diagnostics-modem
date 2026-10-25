@@ -45,6 +45,8 @@ pip install -r requirements.txt
 python decode_lg.py recording.m4a --auto-tune
 ```
 
+Supported formats: any format handled by **ffmpeg** — `.m4a`, `.mp3`, `.ogg`, `.opus`, `.aac`, `.flac`, `.wav`, `.webm`, `.3gp`, and more. Only `.wav` works without ffmpeg installed.
+
 To run without activating the venv each time:
 ```bash
 .venv/bin/python decode_lg.py recording.m4a --auto-tune
