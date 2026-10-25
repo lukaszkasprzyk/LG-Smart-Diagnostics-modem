@@ -1,8 +1,12 @@
 # LG Smart Diagnostics — acoustic decoder
 
+> **Polski opis poniżej / Polish description below**
+
 Decodes the 4-MFSK audio burst produced by **LG Smart Diagnosis** on refrigerators,
 washing machines, dishwashers and other LG home appliances, and maps the payload to
 known LG error codes.
+
+![Signal analysis — LG GBB92MCB2P, error CF (condenser fan)](docs/signal_example.png)
 
 ## Background
 
@@ -129,3 +133,49 @@ pytest tests/ -v
 ## Licence
 
 MIT
+
+---
+
+## Polski opis
+
+### Co to jest?
+
+Dekoder sygnału akustycznego **LG Smart Diagnosis** — funkcji diagnostycznej wbudowanej w lodówki, pralki, zmywarki i inne urządzenia AGD marki LG.
+
+Gdy urządzenie ma problem, funkcja Smart Diagnosis nadaje krótki sysygnał dźwiękowy (ok. 7–17 sekund) zakodowany jako 4-MFSK — cztery tony w zakresie 1400–2100 Hz przełączające się z prędkością ~24 sym/s. Oficjalnie sygnał odbiera aplikacja LG ThinQ, ale ten projekt umożliwia zdekodowanie go samodzielnie z dowolnego nagrania.
+
+### Po co to robić?
+
+Aplikacja LG ThinQ pokazuje tylko ogólny opis błędu. Ten dekoder wyciąga surowy kod błędu bezpośrednio z sygnału i pokazuje dokładnie co lodówka/pralka raportuje — bez rejestracji, bez chmury, bez potrzeby posiadania smartfona LG.
+
+**Przykład z życia:** dekoder wykrył kod `CF` (awaria wentylatora skraplacza) w lodówce LG GBB92MCB2P po tym jak użytkownik włożył gorącą wodę do zamrażalnika podczas rozmrażania. Para wodna dostała się do przestrzeni silnika i zakłóciła sygnał feedback wentylatora — błąd tymczasowy, nie wymagający serwisu.
+
+### Jak używać?
+
+```bash
+# 1. Zainstaluj zależności
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+brew install ffmpeg  # macOS
+
+# 2. Nagraj sygnał Smart Diagnosis na telefon
+#    (zacznij nagrywać PRZED naciśnięciem przycisku na urządzeniu)
+
+# 3. Zdekoduj
+python decode_lg.py nagranie.m4a --auto-tune
+
+# 4. (opcjonalnie) Wygeneruj wykresy
+python visualise_lg.py nagranie.m4a
+```
+
+### Jak działa sygnał?
+
+| Symbol | Częstotliwość | Kod Grey |
+|--------|--------------|----------|
+| 0 | F6 = 1396.91 Hz | `00` |
+| 1 | G6 = 1567.98 Hz | `01` |
+| 2 | A6 = 1760.00 Hz | `11` |
+| 3 | C7 = 2093.00 Hz | `10` |
+
+Modulacja: 4-MFSK, kodowanie Grey, szybkość symboli ~23.89 sym/s, jeden symbol trwa ~41.9 ms. Urządzenia LG generują sygnał jako fala kwadratowa z MCU (bogate w harmoniczne — to celowe, bo kodeki głosowe lepiej go przepuszczają). Strukturę ramki opisuje patent LG [AU2010269313B2](https://patents.google.com/patent/AU2010269313B2/en).
+
