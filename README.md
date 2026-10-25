@@ -68,6 +68,8 @@ Options:
 
 ### Example output
 
+The included `example_CF_fridge_GBB92MCB2P.m4a` was recorded with a smartphone voice recorder held near an LG GBB92MCB2P refrigerator.  Running the decoder on it produces:
+
 ```
 Loading: fridge.m4a
 Duration: 15.83 s  Sample rate: 44100 Hz
@@ -150,7 +152,7 @@ Gdy urządzenie ma problem, funkcja Smart Diagnosis nadaje krótki sysygnał dź
 
 Aplikacja LG ThinQ pokazuje tylko ogólny opis błędu. Ten dekoder wyciąga surowy kod błędu bezpośrednio z sygnału i pokazuje dokładnie co lodówka/pralka raportuje — bez rejestracji, bez chmury, bez potrzeby posiadania smartfona LG.
 
-**Przykład z życia:** dekoder wykrył kod `CF` (awaria wentylatora skraplacza) w lodówce LG GBB92MCB2P po tym jak użytkownik włożył gorącą wodę do zamrażalnika podczas rozmrażania. Para wodna dostała się do przestrzeni silnika i zakłóciła sygnał feedback wentylatora — błąd tymczasowy, nie wymagający serwisu.
+**Przykład z życia:** nagranie dołączone do repozytorium (`example_CF_fridge_GBB92MCB2P.m4a`) zostało zarejestrowane dyktafonem smartfona przy lodówce LG GBB92MCB2P. Dekoder wykrył kod `CF` — awaria wentylatora skraplacza (condenser fan feedback signal failure).
 
 ### Jak używać?
 
