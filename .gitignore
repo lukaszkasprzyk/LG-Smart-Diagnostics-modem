@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.DS_Store
+*.wav
+*.m4a
+*.mp3
+*.ogg
+*_analysis.png
+signal_analysis.html
